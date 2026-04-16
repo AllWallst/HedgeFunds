@@ -359,7 +359,7 @@ def get_filing_index(cik: str, accession_number: str) -> dict:
     """Get the filing index (list of documents) for a specific filing."""
     padded_cik = cik.lstrip("0").zfill(10)
     acc_no_dashes = accession_number.replace("-", "")
-    url = f"{SEC_BASE_URL}/Archives/edgar/data/{padded_cik}/{acc_no_dashes}/index.json"
+    url = f"{SEC_EDGAR_URL}/Archives/edgar/data/{padded_cik}/{acc_no_dashes}/index.json"
     content = _fetch_with_cache(url, accept="application/json")
     return json.loads(content)
 
@@ -374,7 +374,7 @@ def find_infotable_url(cik: str, accession_number: str) -> Optional[str]:
 
     padded_cik = cik.lstrip("0").zfill(10)
     acc_no_dashes = accession_number.replace("-", "")
-    base_url = f"{SEC_BASE_URL}/Archives/edgar/data/{padded_cik}/{acc_no_dashes}"
+    base_url = f"{SEC_EDGAR_URL}/Archives/edgar/data/{padded_cik}/{acc_no_dashes}"
 
     items = index.get("directory", {}).get("item", [])
     for item in items:
@@ -1088,7 +1088,7 @@ def find_form4_xml_url(cik: str, accession_number: str) -> Optional[str]:
 
     padded_cik = str(cik).zfill(10)
     acc_no_dashes = accession_number.replace("-", "")
-    base_url = f"{SEC_BASE_URL}/Archives/edgar/data/{padded_cik}/{acc_no_dashes}"
+    base_url = f"{SEC_EDGAR_URL}/Archives/edgar/data/{padded_cik}/{acc_no_dashes}"
 
     items = index.get("directory", {}).get("item", [])
     # Form 4 XML is usually named 'doc4.xml' or something similar
